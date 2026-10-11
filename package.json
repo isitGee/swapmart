@@ -1,0 +1,43 @@
+{
+  "name": "swapmart",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SWAPMART — A Secure Peer-to-Peer Recommerce Marketplace for Consumer Electronics in Tanzania",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "setup:env": "node scripts/setup-env.mjs",
+    "db:start": "node scripts/dev-postgres.mjs start",
+    "db:stop": "node scripts/dev-postgres.mjs stop",
+    "db:status": "node scripts/dev-postgres.mjs status",
+    "db:migrate": "npm run -w @swapmart/api db:migrate",
+    "db:seed": "npm run -w @swapmart/api db:seed",
+    "db:reset": "npm run -w @swapmart/api db:reset",
+    "admin:create": "npm run -w @swapmart/api admin:create",
+    "build:shared": "npm run -w @swapmart/shared build",
+    "build": "npm run build:shared && npm run -w @swapmart/api build && npm run -w @swapmart/web build",
+    "dev": "npm run build:shared && concurrently -n api,web -c blue,magenta \"npm run -w @swapmart/api dev\" \"npm run -w @swapmart/web dev\"",
+    "dev:api": "npm run -w @swapmart/api dev",
+    "dev:web": "npm run -w @swapmart/web dev",
+    "typecheck": "npm run build:shared && npm run -w @swapmart/api typecheck && npm run -w @swapmart/web typecheck",
+    "lint": "npm run -w @swapmart/web lint",
+    "test": "npm run build:shared && npm run -w @swapmart/api test:unit",
+    "test:unit": "npm run -w @swapmart/api test:unit",
+    "test:integration": "npm run build:shared && npm run -w @swapmart/api test:integration",
+    "test:e2e": "npm run build:shared && npm run -w @swapmart/api test:e2e",
+    "test:all": "npm run test:unit && npm run test:integration && npm run test:e2e",
+    "test:browser": "npm run -w @swapmart/web test:browser",
+    "verify": "npm run typecheck && npm run test:all && npm run build"
+  },
+  "devDependencies": {
+    "@embedded-postgres/linux-x64": "17.9.0-beta.17",
+    "concurrently": "^9.1.2",
+    "typescript": "5.9.3"
+  }
+}

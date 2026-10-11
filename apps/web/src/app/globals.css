@@ -1,0 +1,261 @@
+@import 'tailwindcss';
+@source '../**/*.{ts,tsx}';
+
+/*
+ * SWAPMART design tokens.
+ *
+ * One restrained blue carries the brand; everything else is white, soft neutral
+ * and ink. Tokens are declared once here so every page, table, badge and form
+ * control shares the same spacing, radii, borders and shadows.
+ */
+@theme {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --color-brand-50: #f2f6ff;
+  --color-brand-100: #e4ecff;
+  --color-brand-200: #c7d7fe;
+  --color-brand-300: #a3bbfb;
+  --color-brand-400: #7b99f7;
+  --color-brand-500: #4f74ef;
+  --color-brand-600: #3457e0;
+  --color-brand-700: #2843bd;
+  --color-brand-800: #223a99;
+  --color-brand-900: #1e3378;
+
+  --color-ink-50: #f8f9fb;
+  --color-ink-100: #eef0f4;
+  --color-ink-200: #dfe2ea;
+  --color-ink-300: #c2c8d2;
+  --color-ink-400: #98a1b0;
+  --color-ink-500: #6b7585;
+  --color-ink-600: #4a5567;
+  --color-ink-700: #2b3648;
+  --color-ink-800: #172033;
+  --color-ink-900: #0b1220;
+
+  --color-info-50: #eff5ff;
+  --color-info-100: #dde9ff;
+  --color-info-600: #2b6cb0;
+  --color-info-700: #1f4f85;
+
+  --color-line: #e5e8ee;
+  --color-line-strong: #d3d8e2;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f7f8fa;
+  --color-surface-sunken: #eef0f4;
+
+  --color-success-50: #e8f6f0;
+  --color-success-100: #d3ece1;
+  --color-success-600: #12805c;
+  --color-success-700: #0d6647;
+  --color-warning-50: #fdf5e7;
+  --color-warning-100: #f9e7c8;
+  --color-warning-600: #b26a06;
+  --color-warning-700: #92400e;
+  --color-danger-50: #fdecea;
+  --color-danger-100: #fadad6;
+  --color-danger-600: #c0281d;
+  --color-danger-700: #9a2017;
+
+  --radius-control: 0.625rem;
+  --radius-card: 0.875rem;
+  --radius-panel: 1.125rem;
+
+  --shadow-soft: 0 1px 2px rgba(11, 18, 32, 0.04), 0 1px 3px rgba(11, 18, 32, 0.06);
+  --shadow-raised: 0 4px 12px -2px rgba(11, 18, 32, 0.08), 0 2px 4px -2px rgba(11, 18, 32, 0.06);
+  --shadow-overlay: 0 24px 48px -12px rgba(11, 18, 32, 0.24);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-surface-muted);
+    color: var(--color-ink-800);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-ink-900);
+    letter-spacing: -0.011em;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-brand-100);
+  }
+}
+
+@layer components {
+  .sm-card {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .sm-panel {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-panel);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Form controls: identical height, border and focus treatment everywhere. */
+  .sm-input {
+    display: block;
+    width: 100%;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-control);
+    background: var(--color-surface);
+    color: var(--color-ink-800);
+    font-size: 0.875rem;
+    line-height: 1.4rem;
+    transition: border-color 120ms ease, box-shadow 120ms ease;
+  }
+
+  .sm-input::placeholder {
+    color: var(--color-ink-400);
+  }
+
+  .sm-input:hover:not(:disabled) {
+    border-color: var(--color-ink-300);
+  }
+
+  .sm-input:focus {
+    border-color: var(--color-brand-500);
+    box-shadow: 0 0 0 3px var(--color-brand-100);
+    outline: none;
+  }
+
+  .sm-input[aria-invalid='true'] {
+    border-color: var(--color-danger-600);
+  }
+
+  .sm-input[aria-invalid='true']:focus {
+    box-shadow: 0 0 0 3px var(--color-danger-100);
+  }
+
+  .sm-input:disabled {
+    background: var(--color-surface-sunken);
+    color: var(--color-ink-500);
+    cursor: not-allowed;
+  }
+
+  textarea.sm-input {
+    min-height: 5rem;
+    resize: vertical;
+  }
+
+  .sm-skeleton {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-surface-sunken);
+    border-radius: var(--radius-control);
+  }
+
+  .sm-skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: sm-shimmer 1.4s infinite;
+  }
+
+  /* Small entrance used by toasts, dialogs and freshly loaded panels. */
+  .sm-enter {
+    animation: sm-fade-up 180ms ease-out both;
+  }
+
+  /* Visually hidden until focused — used by the "skip to content" link. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .sm-prose {
+    color: var(--color-ink-700);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .sm-prose p + p {
+    margin-top: 0.85rem;
+  }
+
+  .sm-prose h2 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+  }
+
+  .sm-prose ul {
+    margin-top: 0.5rem;
+    padding-left: 1.1rem;
+    list-style: disc;
+  }
+
+  .sm-prose li + li {
+    margin-top: 0.35rem;
+  }
+}
+
+@keyframes sm-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes sm-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.sm-animate-in {
+  animation: sm-fade-up 180ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

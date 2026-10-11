@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# builds
+dist/
+build/
+out/
+.next/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+
+# env & secrets — never commit real credentials
+.env
+.env.*
+!.env.example
+
+# local (non-Cloudinary) development media storage
+apps/api/var/
+apps/api/storage/
+apps/api/tmp/
+
+# local embedded PostgreSQL data directory (sandbox development only)
+.var/
+.var-pg/
+pgdata/
+
+# test & tooling output
+coverage/
+test-results/
+playwright-report/
+.vitest/
+*.log
+logs/
+
+# editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
